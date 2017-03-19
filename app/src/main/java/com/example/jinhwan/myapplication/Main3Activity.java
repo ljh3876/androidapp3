@@ -30,8 +30,7 @@ public class Main3Activity extends AppCompatActivity {
     EditText e1,e2,e3;
     GridLayout count,result;
     FrameLayout picker;
-    int imageIndex;
-
+    int index;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,6 +38,7 @@ public class Main3Activity extends AppCompatActivity {
         setContentView(R.layout.activity_main3);
         init();
     }
+
     void init(){
         start=(Switch)findViewById(R.id.switch_start);
         chrono=(Chronometer)findViewById(R.id.chronometer);
@@ -59,16 +59,14 @@ public class Main3Activity extends AppCompatActivity {
         result_teen=(TextView)findViewById(R.id.textView_teen);
         result_child=(TextView)findViewById(R.id.textView_child);
 
-
-
     }
     public void onMyClick(View v) {
         switch (v.getId()) {
             case R.id.switch_start:
                 if(start.isChecked()){
 
-                    imageIndex=0;
-                    changeImage();
+                    index=0;
+                    changeLayout();
                     chrono.setBase(SystemClock.elapsedRealtime());
                     textCrono.setVisibility(View.VISIBLE);
                     chrono.setVisibility(View.VISIBLE);
@@ -84,48 +82,50 @@ public class Main3Activity extends AppCompatActivity {
                     button_prev.setVisibility(View.INVISIBLE);
                     button_next.setVisibility(View.INVISIBLE);
                     picker.setVisibility(View.INVISIBLE);
-
-
                 }
                 break;
             case R.id.button_next:
-                if (imageIndex < 3 ) {
-                    imageIndex ++;
+                if (index < 3 ) {
+                    index ++;
                 }
-                changeImage();
+                changeLayout();
                 break;
 
             case R.id.button_prev:
-                if (imageIndex > 0){
-                    imageIndex --;
+                if (index > 0){
+                    index --;
                 }
-                changeImage();
+                changeLayout();
                 break;
         }
     }
-    private void changeImage(){
+    void changeLayout(){
 
-        if (imageIndex == 0) {
+        if (index == 0) {
+            button_prev.setEnabled(false);
             calender.setVisibility(View.VISIBLE);
             timePicker.setVisibility(View.INVISIBLE);
             count.setVisibility(View.INVISIBLE);
             result.setVisibility(View.INVISIBLE);
 
-        }else if (imageIndex == 1){
+        }else if (index == 1){
+            button_prev.setEnabled(true);
             calender.setVisibility(View.INVISIBLE);
             timePicker.setVisibility(View.VISIBLE);
             count.setVisibility(View.INVISIBLE);
             result.setVisibility(View.INVISIBLE);
 
-        }else if (imageIndex == 2) {
+        }else if (index == 2) {
+            button_next.setEnabled(true);
             calender.setVisibility(View.INVISIBLE);
             timePicker.setVisibility(View.INVISIBLE);
             count.setVisibility(View.VISIBLE);
             result.setVisibility(View.INVISIBLE);
 
-        }else if(imageIndex == 3){
+        }else if(index == 3){
             getValue();
             showValue();
+            button_next.setEnabled(false);
             calender.setVisibility(View.INVISIBLE);
             timePicker.setVisibility(View.INVISIBLE);
             count.setVisibility(View.INVISIBLE);
